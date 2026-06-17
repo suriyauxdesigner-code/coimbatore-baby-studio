@@ -31,10 +31,33 @@
     .cta-btn { transition: transform .45s cubic-bezier(.22,.61,.36,1), letter-spacing .45s ease; }
     .cta-btn:hover { transform: translateY(-3px); letter-spacing: .3em; }
 
-    /* Mobile nav toggle */
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--nav-ink, #1A1A1A); margin: 5px 0; transition: background .3s ease; }
-    .nav-mobile { display: none; }
+    /* Hamburger button */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; }
+    .nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--nav-ink, #1A1A1A); margin: 5px 0; transition: transform .38s cubic-bezier(.22,.61,.36,1), opacity .3s ease, background .3s ease; transform-origin: center; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Backdrop */
+    #nav-backdrop { position: fixed; inset: 0; background: rgba(26,26,26,.52); z-index: 150; opacity: 0; pointer-events: none; transition: opacity .42s ease; }
+    #nav-backdrop.open { opacity: 1; pointer-events: all; }
+
+    /* Mobile drawer */
+    #mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; width: min(300px, 82vw); background: #FCFBF9; z-index: 200; transform: translateX(100%); transition: transform .45s cubic-bezier(.22,.61,.36,1); display: none; flex-direction: column; }
+    #mobile-menu.open { transform: translateX(0); }
+    .mobile-menu-inner { display: flex; flex-direction: column; height: 100%; padding: 0 32px 40px; overflow-y: auto; }
+    .mobile-menu-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 0 0; min-height: 70px; border-bottom: 1px solid #EDE7DD; margin-bottom: 48px; }
+    .mobile-menu-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: #1A1A1A; text-decoration: none; }
+    .mobile-menu-close { background: none; border: none; cursor: pointer; padding: 4px; line-height: 1; font-size: 22px; color: #1A1A1A; }
+    .mobile-nav-links { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .mobile-nav-link { text-decoration: none; color: #1A1A1A; font-size: 13px; font-weight: 400; letter-spacing: .22em; text-transform: uppercase; padding: 18px 0; border-bottom: 1px solid #EDE7DD; display: flex; align-items: center; justify-content: space-between; transition: color .3s ease; }
+    .mobile-nav-link:hover { color: #9E1C28; }
+    .mobile-nav-link::after { content: '→'; font-size: 14px; opacity: .4; transition: opacity .3s ease, transform .3s ease; }
+    .mobile-nav-link:hover::after { opacity: 1; transform: translateX(4px); }
+    .mobile-inquire { display: inline-block; margin-top: 40px; background: #9E1C28; color: #FCFBF9; text-decoration: none; font-size: 10px; letter-spacing: .26em; text-transform: uppercase; font-weight: 500; padding: 16px 32px; text-align: center; transition: background .3s ease; }
+    .mobile-inquire:hover { background: #7d1620; }
+    .mobile-contact-info { margin-top: 32px; padding-top: 28px; border-top: 1px solid #EDE7DD; }
+    .mobile-contact-info a { display: block; color: #6B645F; text-decoration: none; font-size: 12px; font-weight: 300; line-height: 2; }
 
     /* Image placeholder */
     .img-slot {
@@ -61,9 +84,8 @@
     @media (max-width: 900px) {
       /* Nav */
       .nav-toggle { display: block; }
-      .nav-links { display: none; }
-      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #FCFBF9; z-index: 55; align-items: center; justify-content: center; gap: 36px; }
-      .nav-links.open a { font-size: 13px !important; letter-spacing: .22em !important; }
+      .nav-links { display: none !important; }
+      #mobile-menu { display: flex; }
       nav { padding: 18px 24px !important; }
 
       /* Hero */
@@ -112,6 +134,30 @@
   </style>
 </head>
 <body>
+
+<!-- MOBILE BACKDROP -->
+<div id="nav-backdrop"></div>
+
+<!-- MOBILE DRAWER -->
+<div id="mobile-menu" role="dialog" aria-label="Navigation menu">
+  <div class="mobile-menu-inner">
+    <div class="mobile-menu-head">
+      <a href="#top" class="mobile-menu-logo">Coimbatore <em>Baby</em> Studio</a>
+    </div>
+    <nav class="mobile-nav-links" aria-label="Mobile navigation">
+      <a class="mobile-nav-link" href="#top">Home</a>
+      <a class="mobile-nav-link" href="#portfolio">Portfolio</a>
+      <a class="mobile-nav-link" href="#services">Services</a>
+      <a class="mobile-nav-link" href="#mission">About</a>
+      <a class="mobile-nav-link" href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="mobile-inquire">Inquire Now</a>
+    <div class="mobile-contact-info">
+      <a href="tel:+917010303543">+91 70103 03543</a>
+      <a href="mailto:coimbatorebabystudio@gmail.com">coimbatorebabystudio@gmail.com</a>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav id="main-nav" style="position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:24px 52px; transition:background .5s ease, padding .5s ease, border-color .5s ease; border-bottom:1px solid transparent;">
@@ -488,19 +534,34 @@
     });
   }, { threshold: 0.12 });
 
-  /* ── Mobile nav toggle ──────────────────────────────────────── */
+  /* ── Mobile drawer ──────────────────────────────────────────── */
+  const mobileMenu = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('nav-backdrop');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    backdrop.classList.add('open');
+    navToggle.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    backdrop.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
   navToggle.addEventListener('click', () => {
-    const open = navLinksContainer.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', open);
-    document.body.style.overflow = open ? 'hidden' : '';
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
   });
 
-  /* Close mobile nav when a link is clicked */
-  navLinksContainer.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navLinksContainer.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+  backdrop.addEventListener('click', closeMenu);
+
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', closeMenu);
   });
 
   /* ── Init ───────────────────────────────────────────────────── */
