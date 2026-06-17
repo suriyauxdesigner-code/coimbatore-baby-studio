@@ -59,20 +59,55 @@
     .img-slot span { position: relative; z-index: 1; }
 
     @media (max-width: 900px) {
+      /* Nav */
       .nav-toggle { display: block; }
       .nav-links { display: none; }
-      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #FCFBF9; z-index: 55; align-items: center; justify-content: center; gap: 32px; }
-      .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      .portfolio-grid { columns: 2 !important; }
-      .footer-grid { grid-template-columns: 1fr 1fr !important; }
-      .mission-grid { grid-template-columns: 1fr !important; padding: 60px 24px !important; }
-      .mission-amp { font-size: clamp(160px, 60vw, 400px) !important; }
-      .hero-section { padding: 140px 24px 0 !important; }
-      .hero-img-wrap { padding: 60px 24px 0 !important; }
-      .about-pin { padding: 60px 24px !important; }
-      .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-      nav { padding: 20px 24px !important; }
-      .nav-inquire-wrap { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #FCFBF9; z-index: 55; align-items: center; justify-content: center; gap: 36px; }
+      .nav-links.open a { font-size: 13px !important; letter-spacing: .22em !important; }
+      nav { padding: 18px 24px !important; }
+
+      /* Hero */
+      .hero-section { padding: 120px 24px 0 !important; }
+      .hero-img-wrap { padding: 40px 16px 0 !important; }
+      .hero-img-wrap > div { height: 56vw !important; min-height: 260px !important; }
+
+      /* About sticky */
+      .about-pin { padding: 60px 20px !important; }
+      .about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+
+      /* Moments scroll images */
+      .moment-img { width: min(72%, 320px) !important; margin-left: 0 !important; margin-right: 0 !important; align-self: center !important; }
+
+      /* Services */
+      .services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+      .services-grid .pf-item { margin-top: 0 !important; }
+      #services { padding: 72px 20px 72px !important; }
+
+      /* Mission */
+      .mission-grid { grid-template-columns: 1fr !important; padding: 48px 20px 56px !important; }
+      .mission-amp { font-size: clamp(130px, 55vw, 280px) !important; line-height: 1 !important; }
+
+      /* Portfolio */
+      .portfolio-grid { columns: 2 !important; column-gap: 10px !important; }
+      .portfolio-grid .pf-item { margin-bottom: 10px !important; }
+      #portfolio { padding: 24px 16px 72px !important; }
+
+      /* CTA */
+      #contact { padding: 80px 24px !important; }
+
+      /* Footer */
+      footer { padding: 52px 20px 28px !important; }
+      .footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+      .footer-bar { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 6px !important; }
+    }
+
+    @media (max-width: 480px) {
+      /* Single column portfolio on small phones */
+      .portfolio-grid { columns: 1 !important; }
+      /* Single column services on small phones */
+      .services-grid { grid-template-columns: 1fr !important; }
+      /* Tighten hero text */
+      .hero-section p[style] { letter-spacing: .18em !important; }
     }
   </style>
 </head>
@@ -144,42 +179,42 @@
   <div style="position:relative; z-index:2; margin-top:-100vh; padding:30vh 6vw 26vh; display:flex; flex-direction:column; gap:15vh;">
 
     <!-- Image 1: left -->
-    <div style="width:min(36%,440px); align-self:flex-start; margin-left:6%;">
+    <div class="moment-img" style="width:min(36%,440px); align-self:flex-start; margin-left:6%;">
       <div style="aspect-ratio:4/5; box-shadow:0 44px 100px -54px rgba(0,0,0,.6);">
         <img src="img/BBP_0405.JPG" alt="Newborn" style="width:100%; height:100%; object-fit:cover; display:block;">
       </div>
     </div>
 
     <!-- Image 2: right -->
-    <div style="width:min(36%,440px); align-self:flex-end; margin-right:6%;">
+    <div class="moment-img" style="width:min(36%,440px); align-self:flex-end; margin-right:6%;">
       <div style="aspect-ratio:4/5; box-shadow:0 44px 100px -54px rgba(0,0,0,.6);">
         <img src="img/Maternity 01.jpg" alt="Maternity" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;">
       </div>
     </div>
 
     <!-- Image 3: center -->
-    <div style="width:min(36%,440px); align-self:center;">
+    <div class="moment-img" style="width:min(36%,440px); align-self:center;">
       <div style="aspect-ratio:4/5; box-shadow:0 44px 100px -54px rgba(0,0,0,.6);">
         <img src="img/Family 06.JPG" alt="Family" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
       </div>
     </div>
 
     <!-- Image 4: left -->
-    <div style="width:min(36%,440px); align-self:flex-start; margin-left:6%;">
+    <div class="moment-img" style="width:min(36%,440px); align-self:flex-start; margin-left:6%;">
       <div style="aspect-ratio:4/5; box-shadow:0 44px 100px -54px rgba(0,0,0,.6);">
         <img src="img/DSC01037.JPG" alt="Toddler" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;">
       </div>
     </div>
 
     <!-- Image 5: right -->
-    <div style="width:min(36%,440px); align-self:flex-end; margin-right:6%;">
+    <div class="moment-img" style="width:min(36%,440px); align-self:flex-end; margin-right:6%;">
       <div style="aspect-ratio:4/5; box-shadow:0 44px 100px -54px rgba(0,0,0,.6);">
         <img src="img/DSC00608.JPG" alt="Cake smash" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
       </div>
     </div>
 
     <!-- Image 6: center -->
-    <div style="width:min(36%,440px); align-self:center;">
+    <div class="moment-img" style="width:min(36%,440px); align-self:center;">
       <div style="aspect-ratio:4/5; box-shadow:0 44px 100px -54px rgba(0,0,0,.6);">
         <img src="img/Family 10.jpg" alt="Siblings" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
       </div>
@@ -342,7 +377,7 @@
       </div>
     </div>
   </div>
-  <div style="max-width:1440px; margin:56px auto 0; padding-top:24px; border-top:1px solid rgba(217,211,202,.14); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-weight:300; font-size:12px; opacity:.5;">
+  <div class="footer-bar" style="max-width:1440px; margin:56px auto 0; padding-top:24px; border-top:1px solid rgba(217,211,202,.14); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-weight:300; font-size:12px; opacity:.5;">
     <span>© 2026 Coimbatore Baby Studio. All rights reserved.</span>
     <span>Capturing little moments since 2015</span>
   </div>
@@ -410,6 +445,8 @@
 
   /* ── Main scroll handler ────────────────────────────────────── */
   function onScroll() {
+    const mobile = window.innerWidth <= 900;
+    const side = mobile ? '24px' : '52px';
     const navMid = 44;
     let overDark = false;
     darkSections.forEach(sec => {
@@ -422,19 +459,19 @@
       nav.style.background = 'transparent';
       nav.style.backdropFilter = 'none';
       nav.style.borderBottomColor = 'transparent';
-      nav.style.padding = scrolled ? '15px 52px' : '24px 52px';
+      nav.style.padding = scrolled ? `12px ${side}` : `18px ${side}`;
       setNavInk('#FCFBF9', true);
     } else {
       if (scrolled) {
         nav.style.background = 'rgba(252,251,249,.88)';
         nav.style.backdropFilter = 'blur(12px)';
         nav.style.borderBottomColor = '#EAE4DA';
-        nav.style.padding = '15px 52px';
+        nav.style.padding = `12px ${side}`;
       } else {
         nav.style.background = 'transparent';
         nav.style.backdropFilter = 'none';
         nav.style.borderBottomColor = 'transparent';
-        nav.style.padding = '24px 52px';
+        nav.style.padding = mobile ? `18px ${side}` : `24px ${side}`;
       }
       setNavInk('#1A1A1A', false);
     }
