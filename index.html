@@ -131,9 +131,111 @@
       /* Tighten hero text */
       .hero-section p[style] { letter-spacing: .18em !important; }
     }
+
+    /* ── Page Loader ──────────────────────────────────────────── */
+    body:has(#loader) { overflow: hidden; }
+
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #1A1A1A;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .95s cubic-bezier(.76,0,.24,1);
+    }
+    #loader.out { transform: translateY(-100%); }
+
+    .ldr-inner {
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+      transition: opacity .42s ease, transform .42s ease;
+    }
+    .ldr-inner.fade { opacity: 0; transform: scale(.97); }
+
+    .ldr-pre {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px; font-weight: 400; letter-spacing: .55em;
+      text-transform: uppercase; color: rgba(252,251,249,.45);
+      margin-bottom: 14px;
+      animation: ldrUp .8s cubic-bezier(.22,.61,.36,1) .15s both;
+    }
+    .ldr-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 9vw, 128px);
+      font-weight: 400; line-height: 1; letter-spacing: -.015em;
+      color: #FCFBF9;
+      animation: ldrUp 1s cubic-bezier(.22,.61,.36,1) .35s both;
+      margin-bottom: 22px;
+    }
+    .ldr-tag {
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px; font-weight: 300; letter-spacing: .4em;
+      text-transform: uppercase; color: rgba(252,251,249,.38);
+      animation: ldrUp .7s cubic-bezier(.22,.61,.36,1) .6s both;
+      margin-bottom: 56px;
+    }
+    .ldr-track-wrap {
+      animation: ldrUp .6s ease .82s both;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .ldr-track {
+      width: min(320px, 68vw); height: 1px;
+      background: rgba(252,251,249,.12);
+      position: relative; overflow: hidden;
+    }
+    .ldr-bar {
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 0%; background: #9E1C28;
+      transition: width .5s cubic-bezier(.22,.61,.36,1);
+    }
+    .ldr-bar::after {
+      content: '';
+      position: absolute; top: -1px; right: 0; width: 4px; height: 3px;
+      background: #c4303f;
+      box-shadow: 0 0 6px 2px rgba(158,28,40,.7);
+    }
+    .ldr-pct {
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px; font-weight: 300; letter-spacing: .18em;
+      color: rgba(252,251,249,.35);
+    }
+    .ldr-dots {
+      display: flex; gap: 6px; margin-top: 28px;
+      animation: ldrUp .6s ease 1s both;
+    }
+    .ldr-dots span {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: rgba(252,251,249,.3);
+      animation: ldrPulse 1.4s ease-in-out infinite;
+    }
+    .ldr-dots span:nth-child(2) { animation-delay: .2s; }
+    .ldr-dots span:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes ldrUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes ldrPulse {
+      0%, 100% { opacity: .3; transform: scaleY(1); }
+      50%       { opacity: 1;  transform: scaleY(2.2); }
+    }
   </style>
 </head>
 <body>
+
+<!-- PAGE LOADER -->
+<div id="loader" aria-hidden="true">
+  <div class="ldr-inner">
+    <p class="ldr-pre">Coimbatore</p>
+    <h1 class="ldr-name"><em>Baby</em> Studio</h1>
+    <p class="ldr-tag">Newborn &middot; Maternity &middot; Toddler &middot; Lifestyle</p>
+    <div class="ldr-track-wrap">
+      <div class="ldr-track"><div class="ldr-bar" id="ldr-bar"></div></div>
+      <p class="ldr-pct"><span id="ldr-num">0</span><span style="opacity:.5">%</span></p>
+    </div>
+    <div class="ldr-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
 
 <!-- MOBILE BACKDROP -->
 <div id="nav-backdrop"></div>
@@ -217,12 +319,12 @@
 
 <!-- STICKY IMAGES SCROLL OVER TEXT -->
 <section style="position:relative; background:#FCFBF9;">
-  <!-- Pinned "moments" word -->
+  <!-- Pinned text - sticks at top:0, images scroll over it from below -->
   <div style="position:sticky; top:0; height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; z-index:0;">
-    <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(52px,11vw,170px); line-height:1.05; color:rgba(26,26,26,0.18); user-select:none; letter-spacing:-.02em; text-align:center; max-width:90vw; display:block;">Every Little<br>Moment Matters</span>
+    <span class="reveal" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(52px,11vw,170px); line-height:1.05; color:rgba(26,26,26,0.18); user-select:none; letter-spacing:-.02em; text-align:center; max-width:90vw; display:block;">Every Little<br>Moment Matters</span>
   </div>
-  <!-- Scrolling images -->
-  <div style="position:relative; z-index:2; margin-top:-100vh; padding:30vh 6vw 26vh; display:flex; flex-direction:column; gap:15vh;">
+  <!-- Scrolling images - padding-top:80vh keeps first image well below viewport when text first locks -->
+  <div style="position:relative; z-index:2; padding:80vh 6vw 26vh; display:flex; flex-direction:column; gap:15vh;">
 
     <!-- Image 1: left -->
     <div class="moment-img" style="width:min(36%,440px); align-self:flex-start; margin-left:6%;">
@@ -572,6 +674,66 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
+})();
+</script>
+
+<script>
+/* ── Page Loader ─────────────────────────────────────────────── */
+(function () {
+  const loader = document.getElementById('loader');
+  const bar    = document.getElementById('ldr-bar');
+  const numEl  = document.getElementById('ldr-num');
+  if (!loader) return;
+
+  const MIN_MS  = 2200;
+  const startTs = Date.now();
+  let dismissed = false;
+
+  function setP(p) {
+    p = Math.min(Math.round(p), 100);
+    bar.style.width = p + '%';
+    numEl.textContent = p;
+  }
+
+  function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
+    const wait = Math.max(0, MIN_MS - (Date.now() - startTs));
+    setTimeout(() => {
+      setP(100);
+      setTimeout(() => {
+        loader.querySelector('.ldr-inner').classList.add('fade');
+        setTimeout(() => {
+          loader.classList.add('out');
+          setTimeout(() => { loader.remove(); }, 1000);
+        }, 440);
+      }, 380);
+    }, wait);
+  }
+
+  const imgs = Array.from(document.querySelectorAll('img'));
+  if (!imgs.length) { dismiss(); return; }
+
+  let loaded = 0;
+  function tick() {
+    loaded = Math.min(loaded + 1, imgs.length);
+    setP(loaded / imgs.length * 100);
+    if (loaded >= imgs.length) dismiss();
+  }
+
+  imgs.forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      tick();
+    } else {
+      img.addEventListener('load',  tick, { once: true });
+      img.addEventListener('error', tick, { once: true });
+    }
+  });
+
+  if (loaded >= imgs.length) dismiss();
+
+  /* Safety valve: never block more than 8 seconds */
+  setTimeout(dismiss, 8000);
 })();
 </script>
 </body>
